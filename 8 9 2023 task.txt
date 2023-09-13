@@ -1,0 +1,237 @@
+8/9/2023
+Task
+
+
+create table customer (cid int,cname varchar(20),cage int);                       CREATE TABLE
+mysql> insert into customer values(102,'ram',21);                                 INSERT VALUES
+Query OK, 1 row affected (0.04 sec) 
+
+mysql> insert into customer values(103,'rakhi',23);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(104,'chintu',25);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select *from customer;
++------+--------+------+
+| cid  | cname  | cage |
++------+--------+------+
+|  101 | pavan  |   22 |
+|  102 | ram    |   21 |
+|  103 | rakhi  |   23 |
+|  104 | chintu |   25 |
++------+--------+------+
+4 rows in set (0.00 sec)
+mysql> alter table customer add clocation varchar(20);                            ALTER TABLE ADD COLUMN
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table customer add citems int after cage;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+--------+-----------+
+| cid  | cname  | cage | citems | clocation |
++------+--------+------+--------+-----------+
+|  101 | pavan  |   22 |   NULL | NULL      |
+|  102 | ram    |   21 |   NULL | NULL      |
+|  103 | rakhi  |   23 |   NULL | NULL      |
+|  104 | chintu |   25 |   NULL | NULL      |
++------+--------+------+--------+-----------+
+4 rows in set (0.00 sec)
+mysql> alter table customer drop column citems;                                     DROP            
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+-----------+
+| cid  | cname  | cage | clocation |
++------+--------+------+-----------+
+|  101 | pavan  |   22 | NULL      |
+|  102 | ram    |   21 | NULL      |
+|  103 | rakhi  |   23 | NULL      |
+|  104 | chintu |   25 | NULL      |
+|  105 | laddu  |   20 | hyd       |
++------+--------+------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> desc customer;                                                                DESCRIBE 
++-----------+-------------+------+-----+---------+-------+       
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cid       | int         | YES  |     | NULL    |       |
+| cname     | varchar(20) | YES  |     | NULL    |       |
+| cage      | int         | YES  |     | NULL    |       |
+| clocation | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+mysql> alter table customer add citem int not null;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  101 | pavan  |   22 | NULL      |     0 |
+|  102 | ram    |   21 | NULL      |     0 |
+|  103 | rakhi  |   23 | NULL      |     0 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |   20 | hyd       |     0 |
++------+--------+------+-----------+-------+
+5 rows in set (0.00 sec)
+mysql> update customer set cage=21,cname='sai' where cid=101;                          UPDATE DATA
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  101 | sai    |   21 | NULL      |     0 |
+|  102 | ram    |   21 | NULL      |     0 |
+|  103 | rakhi  |   23 | NULL      |     0 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |   20 | hyd       |     0 |
++------+--------+------+-----------+-------+
+5 rows in set (0.00 sec)
+mysql> update customer set cage=20 AND cname='laddu' where cid=105;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  101 | sai    |   21 | NULL      |     0 |
+|  102 | ram    |   21 | NULL      |     0 |
+|  103 | rakhi  |   23 | NULL      |     0 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |    1 | hyd       |     0 |
++------+--------+------+-----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update customer set cage=21 and cname='sai' where cid=101;                          AND
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  101 | sai    |    1 | NULL      |     0 |
+|  102 | ram    |   21 | NULL      |     0 |
+|  103 | rakhi  |   23 | NULL      |     0 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |    1 | hyd       |     0 |
++------+--------+------+-----------+-------+
+5 rows in set (0.00 sec)
+mysql> update customer set cage=21 OR cname='sai' where cid=101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  101 | sai    |    1 | NULL      |     0 |
+|  102 | ram    |   21 | NULL      |     0 |
+|  103 | rakhi  |   23 | NULL      |     0 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |   20 | hyd       |     0 |
++------+--------+------+-----------+-------+
+5 rows in set (0.00 sec)
+mysql> select cname,cage from customer group by cname,cage;                                 GROUP BY
++--------+------+
+| cname  | cage |
++--------+------+
+| sai    |   21 |
+| ram    |   21 |
+| rakhi  |   23 |
+| chintu |   25 |
+| laddu  |   20 |
++--------+------+
+5 rows in set (0.00 sec)
+mysql> select cname,cage from customer order by cage desc;                                  ORDER BY
++--------+------+
+| cname  | cage |
++--------+------+
+| chintu |   25 |
+| rakhi  |   23 |
+| sai    |   21 |
+| ram    |   21 |
+| laddu  |   20 |
++--------+------+
+5 rows in set (0.00 sec)
+mysql> delete from customer where cage=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  102 | ram    |   21 | NULL      |     0 |
+|  103 | rakhi  |   23 | NULL      |     0 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |   20 | hyd       |     0 |
++------+--------+------+-----------+-------+
+4 rows in set (0.00 sec)
+mysql> delete from customer where cage=1;                                                  DELETE
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  102 | ram    |   21 | NULL      |     0 |
+|  103 | rakhi  |   23 | NULL      |     0 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |   20 | hyd       |     0 |
++------+--------+------+-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE customer set citem=5 where cid=102;                                     Update values for alter column
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE customer set citem=10 where cid=103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from customer;
++------+--------+------+-----------+-------+
+| cid  | cname  | cage | clocation | citem |
++------+--------+------+-----------+-------+
+|  102 | ram    |   21 | NULL      |     5 |
+|  103 | rakhi  |   23 | NULL      |    10 |
+|  104 | chintu |   25 | NULL      |     0 |
+|  105 | laddu  |   20 | hyd       |     0 |
++------+--------+------+-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> delete from customer where clocation is null;                                  delete null values
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> select *from customer;
++------+-------+------+-----------+-------+
+| cid  | cname | cage | clocation | citem |
++------+-------+------+-----------+-------+
+|  105 | laddu |   20 | hyd       |     0 |
++------+-------+------+-----------+-------+
+1 row in set (0.00 sec)
+ 
+mysql> truncate customer;                                                           truncate
+Query OK, 0 rows affected (0.03 sec) 
+
+mysql> desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cid       | int         | YES  |     | NULL    |       |
+| cname     | varchar(20) | YES  |     | NULL    |       |
+| cage      | int         | YES  |     | NULL    |       |
+| clocation | varchar(20) | YES  |     | NULL    |       |
+| citem     | int         | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
