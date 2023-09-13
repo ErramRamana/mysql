@@ -1,0 +1,133 @@
+12/9/2023
+task
+
+mysql> create table department(dept_id int not null,dept_info varchar(30),emp_id int not null,primary key(dept_id), foreign key(emp_id) references employee(emp_id));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'department_ibfk_1' in the referenced table 'employee'
+mysql> create table department(dept_id int not null,dept_info varchar(30),emp_id int not null,primary key(dept_id), foreign key(emp_id) references employee(emp_id));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'department_ibfk_1' in the referenced table 'employee'
+
+mysql> alter table employee add unique index idx_emp_id(emp_id);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+            OR
+alter table employee add constraint primary key(emp_id);
+
+mysql> create table department(dept_id int not null,dept_info varchar(30),emp_id int not null,primary key(dept_id), foreign key(emp_id) references employee(emp_id));
+Query OK, 0 rows affected (0.03 sec)                                                                 create table using primary and foreignkey
+
+ 
+mysql> select e.emp_id,e.name from employee inner join department on e.emp_id=d.emp_id;
+ERROR 1054 (42S22): Unknown column 'e.emp_id' in 'field list'
+mysql> select e.emp_id,e.emp_name from employee inner join department on e.emp_id=d.emp_id;
+ERROR 1054 (42S22): Unknown column 'e.emp_id' in 'field list'
+mysql> select employee.emp_id,employee.emp_name from employee inner join department on employee.emp_id=department.emp_id;        inner join
++--------+----------+
+| emp_id | emp_name |
++--------+----------+
+|      1 | mahesh   |
+|      2 | rajesh   |
+|      3 | ramesh   |
+|      8 | kiran    |
+|     10 | srikanth |
++--------+----------+
+5 rows in set (0.00 sec)
+ 
+mysql> select employee.emp_id,employee.emp_name from employee right join department on employee.emp_id=department.emp_id;            right join
++--------+----------+
+| emp_id | emp_name |
++--------+----------+
+|      1 | mahesh   |
+|      2 | rajesh   |
+|      3 | ramesh   |
+|      8 | kiran    |
+|     10 | srikanth |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select employee.emp_id,employee.emp_name from employee left join department on employee.emp_id=department.emp_id;          left join
++--------+-----------+
+| emp_id | emp_name  |
++--------+-----------+
+|      1 | mahesh    |
+|      2 | rajesh    |
+|      3 | ramesh    |
+|      4 | hareesh   |
+|      5 | sushmitha |
+|      6 | pavan     |
+|      7 | kalyan    |
+|      8 | kiran     |
+|      9 | dinesh    |
+|     10 | srikanth  |
+|     11 | vamshi    |
+|     12 | uday      |
++--------+-----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *FROM department;
++---------+-----------+--------+
+| dept_id | dept_info | emp_id |
++---------+-----------+--------+
+|     101 | IT        |      1 |
+|     104 | MARKETING |     10 |
+|     105 | ACCOUNTS  |      8 |
++---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+
+mysql> alter table department add constraint unique(dept_info);                            unique key
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_id   | int         | NO   | PRI | NULL    |       |
+| dept_info | varchar(30) | YES  | UNI | NULL    |       |
+| emp_id    | int         | NO   | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> select *from employee cross join department;                                                 CROSS JOIN
++--------+-----------+------------+-----------+---------+-----------+--------+
+| emp_id | emp_name  | emp_salary | emp_dept  | dept_id | dept_info | emp_id |
++--------+-----------+------------+-----------+---------+-----------+--------+
+|      1 | mahesh    |      25000 | IT        |     105 | ACCOUNTS  |      8 |
+|      1 | mahesh    |      25000 | IT        |     104 | MARKETING |     10 |
+|      1 | mahesh    |      25000 | IT        |     101 | IT        |      1 |
+|      2 | rajesh    |      24000 | IT        |     105 | ACCOUNTS  |      8 |
+|      2 | rajesh    |      24000 | IT        |     104 | MARKETING |     10 |
+|      2 | rajesh    |      24000 | IT        |     101 | IT        |      1 |
+|      3 | ramesh    |      24000 | IT        |     105 | ACCOUNTS  |      8 |
+|      3 | ramesh    |      24000 | IT        |     104 | MARKETING |     10 |
+|      3 | ramesh    |      24000 | IT        |     101 | IT        |      1 |
+|      4 | hareesh   |      34000 | HR        |     105 | ACCOUNTS  |      8 |
+|      4 | hareesh   |      34000 | HR        |     104 | MARKETING |     10 |
+|      4 | hareesh   |      34000 | HR        |     101 | IT        |      1 |
+|      5 | sushmitha |      34000 | HR        |     105 | ACCOUNTS  |      8 |
+|      5 | sushmitha |      34000 | HR        |     104 | MARKETING |     10 |
+|      5 | sushmitha |      34000 | HR        |     101 | IT        |      1 |
+|      6 | pavan     |      26000 | IT        |     105 | ACCOUNTS  |      8 |
+|      6 | pavan     |      26000 | IT        |     104 | MARKETING |     10 |
+|      6 | pavan     |      26000 | IT        |     101 | IT        |      1 |
+|      7 | kalyan    |      21000 | ACCOUNTS  |     105 | ACCOUNTS  |      8 |
+|      7 | kalyan    |      21000 | ACCOUNTS  |     104 | MARKETING |     10 |
+|      7 | kalyan    |      21000 | ACCOUNTS  |     101 | IT        |      1 |
+|      8 | kiran     |      31000 | ACCOUNTS  |     105 | ACCOUNTS  |      8 |
+|      8 | kiran     |      31000 | ACCOUNTS  |     104 | MARKETING |     10 |
+|      8 | kiran     |      31000 | ACCOUNTS  |     101 | IT        |      1 |
+|      9 | dinesh    |      32000 | BANKING   |     105 | ACCOUNTS  |      8 |
+|      9 | dinesh    |      32000 | BANKING   |     104 | MARKETING |     10 |
+|      9 | dinesh    |      32000 | BANKING   |     101 | IT        |      1 |
+|     10 | srikanth  |      19000 | MARKETING |     105 | ACCOUNTS  |      8 |
+|     10 | srikanth  |      19000 | MARKETING |     104 | MARKETING |     10 |
+|     10 | srikanth  |      19000 | MARKETING |     101 | IT        |      1 |
+|     11 | vamshi    |      22000 | MARKETING |     105 | ACCOUNTS  |      8 |
+|     11 | vamshi    |      22000 | MARKETING |     104 | MARKETING |     10 |
+|     11 | vamshi    |      22000 | MARKETING |     101 | IT        |      1 |
+|     12 | uday      |      29000 | FINANCE   |     105 | ACCOUNTS  |      8 |
+|     12 | uday      |      29000 | FINANCE   |     104 | MARKETING |     10 |
+|     12 | uday      |      29000 | FINANCE   |     101 | IT        |      1 |
++--------+-----------+------------+-----------+---------+-----------+--------+
+36 rows in set (0.00 sec)
