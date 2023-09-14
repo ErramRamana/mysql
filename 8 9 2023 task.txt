@@ -235,3 +235,9 @@ mysql> desc customer;
 | citem     | int         | NO   |     | NULL    |       |
 +-----------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
+
+
+
+
+
+sjdbfjhfdjfbskjdchbjhvcjmzbjcjuhbsdcccsd
