@@ -1,0 +1,100 @@
+13/9/2023
+
+mysql> select employee.emp_id,employee.emp_name,emp_salary from employee inner join department on employee.emp_id=department.emp_id;
++--------+----------+------------+
+| emp_id | emp_name | emp_salary |
++--------+----------+------------+
+|      1 | mahesh   |      25000 |
+|      8 | kiran    |      31000 |
+|     10 | srikanth |      19000 |
++--------+----------+------------+
+3 rows in set (0.00 sec)
+mysql> select employee.emp_name,emp_salary from employee inner join department on employee.emp_id=department.emp_id group by employee.emp_name,employee.emp_salary;
++----------+------------+
+| emp_name | emp_salary |
++----------+------------+
+| mahesh   |      25000 |
+| kiran    |      31000 |
+| srikanth |      19000 |
++----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select employee.emp_id, employee.emp_name,emp_salary from employee left join department on employee.emp_id=department.emp_id group by employee.emp_id, employee.emp_name,employee.emp_salary;
++--------+-----------+------------+
+| emp_id | emp_name  | emp_salary |
++--------+-----------+------------+
+|      1 | mahesh    |      25000 |
+|      2 | rajesh    |      24000 |
+|      3 | ramesh    |      24000 |
+|      4 | hareesh   |      34000 |
+|      5 | sushmitha |      34000 |
+|      6 | pavan     |      26000 |
+|      7 | kalyan    |      21000 |
+|      8 | kiran     |      31000 |
+|      9 | dinesh    |      32000 |
+|     10 | srikanth  |      19000 |
+|     11 | vamshi    |      22000 |
+|     12 | uday      |      29000 |
++--------+-----------+------------+
+12 rows in set (0.00 sec)
+
+mysql> select employee.emp_id, employee.emp_name,emp_salary from employee right join department on employee.emp_id=department.emp_id group by employee.emp_id, employee.emp_name,employee.emp_salary;
++--------+----------+------------+
+| emp_id | emp_name | emp_salary |
++--------+----------+------------+
+|      1 | mahesh   |      25000 |
+|      8 | kiran    |      31000 |
+|     10 | srikanth |      19000 |
++--------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select employee.emp_id,employee.emp_name,employee.emp_salary,employee.emp_dept from employee cross join department group by employee.emp_id,employee.emp_salary,employee.emp_name,employee.emp_dept;
++--------+-----------+------------+-----------+
+| emp_id | emp_name  | emp_salary | emp_dept  |
++--------+-----------+------------+-----------+
+|      1 | mahesh    |      25000 | IT        |
+|      2 | rajesh    |      24000 | IT        |
+|      3 | ramesh    |      24000 | IT        |
+|      4 | hareesh   |      34000 | HR        |
+|      5 | sushmitha |      34000 | HR        |
+|      6 | pavan     |      26000 | IT        |
+|      7 | kalyan    |      21000 | ACCOUNTS  |
+|      8 | kiran     |      31000 | ACCOUNTS  |
+|      9 | dinesh    |      32000 | BANKING   |
+|     10 | srikanth  |      19000 | MARKETING |
+|     11 | vamshi    |      22000 | MARKETING |
+|     12 | uday      |      29000 | FINANCE   |
++--------+-----------+------------+-----------+
+12 rows in set (0.00 sec)
+
+mysql> select employee.emp_id, employee.emp_name,emp_salary from employee inner join department on employee.emp_id=department.emp_id group by employee.emp_id, employee.emp_name,employee.emp_salary;
++--------+----------+------------+
+| emp_id | emp_name | emp_salary |
++--------+----------+------------+
+|      1 | mahesh   |      25000 |
+|      8 | kiran    |      31000 |
+|     10 | srikanth |      19000 |
++--------+----------+------------+
+3 rows in set (0.00 sec)
+
+
+
+
+mysql> select employee.emp_id,employee.emp_name,employee.emp_salary,employee.emp_dept from employee cross join department group by employee.emp_id,employee.emp_salary,employee.emp_name,employee.emp_dept;
++--------+-----------+------------+-----------+
+| emp_id | emp_name  | emp_salary | emp_dept  |
++--------+-----------+------------+-----------+
+|      1 | mahesh    |      25000 | IT        |
+|      2 | rajesh    |      24000 | IT        |
+|      3 | ramesh    |      24000 | IT        |
+|      4 | hareesh   |      34000 | HR        |
+|      5 | sushmitha |      34000 | HR        |
+|      6 | pavan     |      26000 | IT        |
+|      7 | kalyan    |      21000 | ACCOUNTS  |
+|      8 | kiran     |      31000 | ACCOUNTS  |
+|      9 | dinesh    |      32000 | BANKING   |
+|     10 | srikanth  |      19000 | MARKETING |
+|     11 | vamshi    |      22000 | MARKETING |
+|     12 | uday      |      29000 | FINANCE   |
++--------+-----------+------------+-----------+
+12 rows in set (0.00 sec)
