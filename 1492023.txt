@@ -1,0 +1,250 @@
+14/9/2023
+TASK
+
+mysql> select if(1=1, 'true','false');                                               IF
++-------------------------+
+| if(1=1, 'true','false') |
++-------------------------+
+| true                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select if(1=1, 'true','false') as output;
++--------+
+| output |
++--------+
+| true   |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select if(1>1, 'true','false') as output;
++--------+
+| output |
++--------+
+| false  |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select if(5<1, 'true','false') as output;
++--------+
+| output |
++--------+
+| false  |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select if(5<5, 'true','false') as output;
++--------+
+| output |
++--------+
+| false  |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select if(5<6, 'true','false') as output;
++--------+
+| output |
++--------+
+| true   |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_name, if(emp_salary=20000,'high salary','low salary','equal salary')as output;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','equal salary')as output' at line 1
+mysql> select emp_name, if(emp_salary=20000,'high salary','low salary')as output;
+ERROR 1054 (42S22): Unknown column 'emp_name' in 'field list'
+mysql> select emp_name, if(emp_salary=20000,'high salary','low salary') from employee as output;
++-----------+-------------------------------------------------+
+| emp_name  | if(emp_salary=20000,'high salary','low salary') |
++-----------+-------------------------------------------------+
+| mahesh    | low salary                                      |
+| rajesh    | low salary                                      |
+| ramesh    | low salary                                      |
+| hareesh   | low salary                                      |
+| sushmitha | low salary                                      |
+| pavan     | low salary                                      |
+| kalyan    | low salary                                      |
+| kiran     | low salary                                      |
+| dinesh    | low salary                                      |
+| srikanth  | low salary                                      |
+| vamshi    | low salary                                      |
+| uday      | low salary                                      |
++-----------+-------------------------------------------------+
+12 rows in set (0.00 sec)
+
+mysql> select emp_name, if(emp_salary>20000,'high salary','low salary') from employee as output;
++-----------+-------------------------------------------------+
+| emp_name  | if(emp_salary>20000,'high salary','low salary') |
++-----------+-------------------------------------------------+
+| mahesh    | high salary                                     |
+| rajesh    | high salary                                     |
+| ramesh    | high salary                                     |
+| hareesh   | high salary                                     |
+| sushmitha | high salary                                     |
+| pavan     | high salary                                     |
+| kalyan    | high salary                                     |
+| kiran     | high salary                                     |
+| dinesh    | high salary                                     |
+| srikanth  | low salary                                      |
+| vamshi    | high salary                                     |
+| uday      | high salary                                     |
++-----------+-------------------------------------------------+
+12 rows in set (0.00 sec)
+
+mysql> select emp_name, if(emp_salary>20000,'high salary','low salary') from employee order by emp_name;
++-----------+-------------------------------------------------+
+| emp_name  | if(emp_salary>20000,'high salary','low salary') |
++-----------+-------------------------------------------------+
+| dinesh    | high salary                                     |
+| hareesh   | high salary                                     |
+| kalyan    | high salary                                     |
+| kiran     | high salary                                     |
+| mahesh    | high salary                                     |
+| pavan     | high salary                                     |
+| rajesh    | high salary                                     |
+| ramesh    | high salary                                     |
+| srikanth  | low salary                                      |
+| sushmitha | high salary                                     |
+| uday      | high salary                                     |
+| vamshi    | high salary                                     |
++-----------+-------------------------------------------------+
+12 rows in set (0.00 sec)
+
+mysql> select emp_name, if(emp_salary>20000,'high salary','low salary') from employee order by emp_name desc;
++-----------+-------------------------------------------------+
+| emp_name  | if(emp_salary>20000,'high salary','low salary') |
++-----------+-------------------------------------------------+
+| vamshi    | high salary                                     |
+| uday      | high salary                                     |
+| sushmitha | high salary                                     |
+| srikanth  | low salary                                      |
+| ramesh    | high salary                                     |
+| rajesh    | high salary                                     |
+| pavan     | high salary                                     |
+| mahesh    | high salary                                     |
+| kiran     | high salary                                     |
+| kalyan    | high salary                                     |
+| hareesh   | high salary                                     |
+| dinesh    | high salary                                     |
++-----------+-------------------------------------------------+
+12 rows in set (0.00 sec)
+
+mysql> select emp_name, if(emp_salary<32000,'high salary','low salary') from employee order by emp_name desc;
++-----------+-------------------------------------------------+
+| emp_name  | if(emp_salary<32000,'high salary','low salary') |
++-----------+-------------------------------------------------+
+| vamshi    | high salary                                     |
+| uday      | high salary                                     |
+| sushmitha | low salary                                      |
+| srikanth  | high salary                                     |
+| ramesh    | high salary                                     |
+| rajesh    | high salary                                     |
+| pavan     | high salary                                     |
+| mahesh    | high salary                                     |
+| kiran     | high salary                                     |
+| kalyan    | high salary                                     |
+| hareesh   | low salary                                      |
+| dinesh    | low salary                                      |
++-----------+-------------------------------------------------+
+12 rows in set (0.00 sec)
+
+mysql> select emp_name, if(emp_salary<32000,'high salary','low salary') from employee group by emp_name,emp_salary,having(emp_salary<20000) order by emp_name desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'having(emp_salary<20000) order by emp_name desc' at line 1
+mysql> select emp_name, if(emp_salary<32000,'high salary','low salary') from employee group by emp_name,emp_salary having(emp_salary<20000) order by emp_name desc;
++----------+-------------------------------------------------+
+| emp_name | if(emp_salary<32000,'high salary','low salary') |
++----------+-------------------------------------------------+
+| srikanth | high salary                                     |
++----------+-------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select emp_name,emp_salary if(emp_salary<32000,'high salary','low salary') from employee group by emp_name,emp_salary having(emp_salary<20000) order by emp_name desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'if(emp_salary<32000,'high salary','low salary') from employee group by emp_name,' at line 1
+mysql> select emp_name,emp_salary, if(emp_salary<32000,'high salary','low salary') from employee group by emp_name,emp_salary having(emp_salary<20000) order by emp_name desc;
++----------+------------+-------------------------------------------------+
+| emp_name | emp_salary | if(emp_salary<32000,'high salary','low salary') |
++----------+------------+-------------------------------------------------+
+| srikanth |      19000 | high salary                                     |
++----------+------------+-------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select emp_name,emp_salary, if(emp_salary<32000,'high salary','low salary') from employee group by emp_name,emp_salary having(emp_salary>20000) order by emp_name desc;
++-----------+------------+-------------------------------------------------+
+| emp_name  | emp_salary | if(emp_salary<32000,'high salary','low salary') |
++-----------+------------+-------------------------------------------------+
+| vamshi    |      22000 | high salary                                     |
+| uday      |      29000 | high salary                                     |
+| sushmitha |      34000 | low salary                                      |
+| ramesh    |      24000 | high salary                                     |
+| rajesh    |      24000 | high salary                                     |
+| pavan     |      26000 | high salary                                     |
+| mahesh    |      25000 | high salary                                     |
+| kiran     |      31000 | high salary                                     |
+| kalyan    |      21000 | high salary                                     |
+| hareesh   |      34000 | low salary                                      |
+| dinesh    |      32000 | low salary                                      |
++-----------+------------+-------------------------------------------------+
+11 rows in set (0.00 sec)
+
+mysql> select ifnull(1,null) as output;
++--------+
+| output |
++--------+
+|      1 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select ifnull(null,null) as output;
++--------+
+| output |
++--------+
+|   NULL |
++--------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee values(13,'ram',null,'ACCOUNTS');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select ifnull(1,13) as output;
++--------+
+| output |
++--------+
+|      1 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select nullif(null,13) as output;
++--------+
+| output |
++--------+
+|   NULL |
++--------+
+1 row in set (0.01 sec)
+
+mysql> select nullif(12,13) as output;
++--------+
+| output |
++--------+
+|     12 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select nullif(null,12) as output;
++--------+
+| output |
++--------+
+|   NULL |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select nullif(null,12 like '%r') as output;
++--------+
+| output |
++--------+
+|   NULL |
++--------+
+1 row in set (0.00 sec)
+
+
+
+
