@@ -1,0 +1,151 @@
+seselevariable_name , variable_code order by value
+group by variable indurty code and variable code
+having condition values order by variable name
+2013 highest value  group by order by
+
+
+
+mysql> lock tables employee read;                                                       LOCK TABLES
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select emp_name from employee;
++-----------+
+| emp_name  |
++-----------+
+| mahesh    |
+| rajesh    |
+| ramesh    |
+| hareesh   |
+| sushmitha |
+| pavan     |
+| kalyan    |
+| kiran     |
+| dinesh    |
+| srikanth  |
+| vamshi    |
+| uday      |
+| ram       |
+| laddu     |
+| rrr       |
++-----------+
+15 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_id=1;
+ERROR 1100 (HY000): Table 'department' was not locked with LOCK TABLES
+
+mysql> lock tables employee write;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delete from employee where emp_id=15;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select emp_name from employee;
++-----------+
+| emp_name  |
++-----------+
+| mahesh    |
+| rajesh    |
+| ramesh    |
+| hareesh   |
+| sushmitha |
+| pavan     |
+| kalyan    |
+| kiran     |
+| dinesh    |
+| srikanth  |
+| vamshi    |
+| uday      |
+| ram       |
+| laddu     |
++-----------+
+14 rows in set (0.00 sec)
+
+mysql> unlock tables;                                                                 UNLOCK TABLES
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+mysql> select user from mysql.user;
++------------------+
+| user             |
++------------------+
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| root             |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> create user ramana@local identified by 'ramana';
+Query OK, 0 rows affected (0.02 sec)                                                          CREATE USER
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> create database axas;
+ERROR 1007 (HY000): Can't create database 'axas'; database exists
+mysql> create database info;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> grant all privileges on axas.* to ram@localhost;                                         GARNT
+Query OK, 0 rows affected (0.01 sec)
+
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u axas -p
+Enter password: ****
+mysql> use info;
+Database changed
+mysql> create table emp(eid int not null,ename varchar(30) not null,edept int not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create user axas@localhost identified by 'pass';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant select *.* to axas@localhost;                                                     GRANT SELECT
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*.* to axas@localhost' at line 1
+mysql> grant select on *.* to axas@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> use info;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table emp(eid int not null,ename varchar(30) not null,edept int not null);
+ERROR 1142 (42000): CREATE command denied to user 'axas'@'localhost' for table 'emp'
+mysql> grant create on *.* to axas@localhost;                                                            GRANT CREATE
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create table emp(eid int not null,ename varchar(30) not null,edept int not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into emp values(1,'ram',101);
+ERROR 1142 (42000): INSERT command denied to user 'axas'@'localhost' for table 'emp'
+
+
+mysql> alter user axas@localhost account lock;                                                            USER LOCK
+Query OK, 0 rows affected (0.01 sec)
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u axas -p
+Enter password: ****
+ERROR 3118 (HY000): Access denied for user 'axas'@'localhost'. Account is locked.
+
+mysql> alter user axas@localhost account unlock;                                                          USER UNLOCK
+Query OK, 0 rows affected (0.01 sec)
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u axas -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+
+
+mysql> select variable_name,variable_code,value from annualdata order by value;
+
+mysql> select *from annualdata having value<50 order by variable_name;
+
++------+---------------+
+| year | highest_value |
++------+---------------+
+| 2013 | 796,443       |
++------+---------------+
+1 row in set (0.01 sec)
